@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Y7 Fractions — Practice Booster 2025/26</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f7f5f0;
+  --surface:#ffffff;
+  --surface2:#f2f0eb;
+  --surface3:#e9e7e1;
+  --border:rgba(0,0,0,.09);
+  --border2:rgba(0,0,0,.17);
+  --text:#1a1a1a;
+  --muted:#555550;
+  --faint:#bbb;
+  --accent:#2a7a4f;
+  --accent-light:#eaf5ef;
+  --accent2:#1e5fa8;
+  --green:#1e7a3c;
+  --red:#b83030;
+  --amber:#c8920a;
+  --blue:#1a5fa8;
+  --working:#eef4ff;
+  --working-b:#1a5fa8;
+  --answer-bg:#edfaf2;
+  --answer-b:#1e7a3c;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Syne',sans-serif;background:var(--bg);color:var(--text);font-size:15px;line-height:1.65;min-height:100vh}
+
+/* TOP BAR */
+.topbar{position:sticky;top:0;z-index:100;background:rgba(247,245,240,.96);backdrop-filter:blur(10px);border-bottom:1px solid var(--border2);display:flex;align-items:center;gap:14px;padding:0 28px;height:52px}
+.tb-logo{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--accent);letter-spacing:.12em;text-transform:uppercase;border:1px solid rgba(42,122,79,.35);padding:3px 10px;border-radius:2px;font-weight:600}
+.tb-title{font-size:13px;font-weight:700;color:var(--text)}
+.tb-meta{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--muted)}
+.tb-right{margin-left:auto;display:flex;gap:8px;align-items:center}
+.chip{font-family:'IBM Plex Mono',monospace;font-size:10px;padding:3px 10px;border-radius:20px;border:1px solid var(--border2);color:var(--muted);white-space:nowrap}
+.tbtn{font-family:'Syne',sans-serif;font-size:12px;font-weight:700;padding:6px 16px;border-radius:4px;border:none;cursor:pointer;transition:all .15s;letter-spacing:.02em}
+.tbtn-check{background:var(--surface2);color:var(--text);border:1px solid var(--border2)}
+.tbtn-check:hover{background:var(--surface3)}
+.tbtn-submit{background:var(--accent);color:#fff}
+.tbtn-submit:hover{opacity:.88}
+.tbtn-reset{background:transparent;color:var(--muted);border:1px solid var(--border)}
+.tbtn-reset:hover{color:var(--red);border-color:var(--red)}
+
+/* HERO */
+.hero{max-width:860px;margin:0 auto;padding:48px 40px 32px}
+.hero-tag{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--accent);letter-spacing:.15em;text-transform:uppercase;margin-bottom:12px;display:flex;align-items:center;gap:8px;font-weight:600}
+.hero-tag::before{content:'';width:24px;height:1.5px;background:var(--accent)}
+.hero h1{font-family:'Fraunces',serif;font-size:clamp(30px,5vw,50px);font-weight:300;line-height:1.1;margin-bottom:8px}
+.hero h1 em{font-style:italic;color:var(--accent)}
+.hero-sub{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--muted);margin-bottom:22px;line-height:1.9}
+.hero-meta{display:grid;grid-template-columns:repeat(4,auto);gap:0;width:fit-content;border:1px solid var(--border2)}
+.hm-cell{padding:10px 20px;border-right:1px solid var(--border2);font-family:'IBM Plex Mono',monospace}
+.hm-cell:last-child{border-right:none}
+.hm-label{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.1em}
+.hm-val{font-size:16px;font-weight:700;color:var(--text);margin-top:2px}
+.hero-tip{margin-top:16px;background:var(--accent-light);border:1px solid rgba(42,122,79,.2);border-left:3px solid var(--accent);padding:10px 16px;font-size:13px;color:#1a4f30;font-family:'IBM Plex Mono',monospace;border-radius:0 4px 4px 0}
+
+/* PROGRESS */
+.prog-wrap{max-width:860px;margin:0 auto;padding:0 40px 20px}
+.prog-row{display:flex;justify-content:space-between;font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--muted);margin-bottom:7px}
+.prog-bar{height:3px;background:var(--surface3);border-radius:2px}
+.prog-fill{height:100%;background:var(--accent);border-radius:2px;transition:width .4s ease}
+.score-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;margin-top:10px;border:1px solid var(--border)}
+.ss-cell{padding:10px 16px;background:var(--surface);text-align:center}
+.ss-val{font-size:20px;font-weight:700;color:var(--text)}
+.ss-lbl{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--muted);margin-top:2px;text-transform:uppercase;letter-spacing:.08em}
+
+/* SECTION HEADER */
+.sec-hdr{max-width:860px;margin:28px auto 0;padding:0 40px}
+.sec-hdr-inner{display:flex;align-items:center;gap:12px;border-top:2px solid var(--accent);padding-top:12px;padding-bottom:8px}
+.sec-icon{width:30px;height:30px;border-radius:50%;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0;font-family:'IBM Plex Mono',monospace}
+.sec-name{font-size:17px;font-weight:700;color:var(--accent)}
+.sec-marks{margin-left:auto;font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--muted)}
+.sec-desc{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--muted);max-width:860px;margin:0 auto;padding:0 40px 4px}
+
+/* QUESTION CARD */
+.qwrap{max-width:860px;margin:0 auto;padding:2px 40px}
+.qcard{background:var(--surface);border:1px solid var(--border);border-radius:4px;padding:18px 22px;margin-bottom:3px;transition:border-color .2s;position:relative}
+.qcard:hover{border-color:var(--border2)}
+.qcard.answered{border-left:3px solid #ccc}
+.qcard.all-correct{border-left:3px solid var(--green)}
+.qcard.some-wrong{border-left:3px solid var(--red)}
+
+.q-top{display:flex;align-items:flex-start;gap:12px}
+.q-label{font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:600;color:var(--accent);white-space:nowrap;background:var(--accent-light);border:1px solid rgba(42,122,79,.2);padding:2px 8px;border-radius:2px;flex-shrink:0;margin-top:1px}
+.q-body{flex:1}
+.q-stem{font-family:'Fraunces',serif;font-size:15px;line-height:1.7;margin-bottom:10px;color:var(--text)}
+.q-stem strong{font-weight:500;color:#000}
+.q-stem em{font-style:italic;color:var(--muted)}
+.q-stem .frac-inline{display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;font-family:'IBM Plex Mono',monospace;font-size:12px;line-height:1.15;margin:0 2px}
+.q-stem .frac-inline span{display:block;text-align:center}
+.q-stem .frac-inline span:last-child{border-top:1.5px solid currentColor;padding-top:1px}
+.q-marks-tag{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--muted);white-space:nowrap;flex-shrink:0;border:1px solid var(--border);padding:2px 8px;border-radius:20px;margin-top:1px}
+
+/* difficulty */
+.diff{font-family:'IBM Plex Mono',monospace;font-size:10px;padding:2px 7px;border-radius:2px;font-weight:600;white-space:nowrap}
+.diff-warm{background:rgba(30,122,60,.1);color:#1a5a30}
+.diff-med{background:rgba(200,146,10,.1);color:#7a5000}
+.diff-hard{background:rgba(184,48,48,.1);color:#7a1a1a}
+.diff-ext{background:rgba(122,40,184,.1);color:#5a1a8a}
+
+/* inputs */
+.ans-row{display:flex;flex-direction:column;gap:8px;margin-top:6px}
+.part-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.part-lbl{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--muted);min-width:130px;flex-shrink:0}
+.ans-in{flex:1;min-width:140px;max-width:300px;background:var(--surface2);border:1px solid var(--border2);border-radius:3px;padding:8px 12px;font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--text);outline:none;transition:border-color .15s}
+.ans-in:focus{border-color:var(--accent)}
+.ans-in.correct{border-color:var(--green);background:rgba(30,122,60,.07)}
+.ans-in.wrong{border-color:var(--red);background:rgba(184,48,48,.07)}
+.ans-in::placeholder{color:var(--faint)}
+
+/* feedback */
+.fb{font-family:'IBM Plex Mono',monospace;font-size:11px;margin-top:8px;padding:7px 12px;border-radius:3px;display:none;line-height:1.6}
+.fb.show{display:block}
+.fb.ok{background:rgba(30,122,60,.08);border:1px solid rgba(30,122,60,.2);color:var(--green)}
+.fb.bad{background:rgba(184,48,48,.08);border:1px solid rgba(184,48,48,.2);color:var(--red)}
+.fb.part{background:rgba(200,146,10,.08);border:1px solid rgba(200,146,10,.2);color:var(--amber)}
+
+/* hint */
+.hint-toggle{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--faint);background:none;border:none;cursor:pointer;padding:4px 0;text-decoration:underline;text-underline-offset:3px;transition:color .15s}
+.hint-toggle:hover{color:var(--muted)}
+.hint-box{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--muted);background:var(--surface2);border-left:2px solid var(--accent);padding:8px 12px;margin-top:6px;line-height:1.7;display:none;border-radius:0 3px 3px 0}
+.hint-box.show{display:block}
+
+/* worked example box */
+.example-box{background:#f8f4ff;border:1px solid #d4aaee;border-left:3px solid #7a28b8;padding:12px 16px;margin:10px 0;border-radius:0 4px 4px 0;font-family:'IBM Plex Mono',monospace;font-size:12px;color:#3a1060;line-height:1.9}
+.example-box strong{color:#5a1a8a}
+
+/* RESULTS */
+.results{max-width:860px;margin:28px auto;padding:0 40px;display:none}
+.results.show{display:block}
+.res-card{background:var(--surface);border:1px solid var(--border2);border-radius:4px;overflow:hidden}
+.res-top{padding:32px 40px;display:flex;align-items:center;gap:32px;border-bottom:1px solid var(--border)}
+.res-score-big{font-family:'Fraunces',serif;font-size:72px;font-weight:300;line-height:1;color:var(--text)}
+.res-score-big span{font-size:28px;color:var(--muted)}
+.res-info{flex:1}
+.res-grade{font-size:22px;font-weight:700;margin-bottom:6px}
+.res-pct{font-family:'IBM Plex Mono',monospace;font-size:14px;color:var(--muted)}
+.res-msg{font-family:'Fraunces',serif;font-style:italic;font-size:15px;color:var(--muted);margin-top:8px}
+.sec-breakdown{padding:24px 40px}
+.sec-breakdown h3{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:16px;font-family:'IBM Plex Mono',monospace}
+.ub-row{display:flex;align-items:center;gap:12px;padding:8px 0;border-bottom:1px solid var(--border)}
+.ub-row:last-child{border-bottom:none}
+.ub-name{font-size:13px;flex:1;color:var(--text)}
+.ub-bar-track{width:180px;height:4px;background:var(--surface3);border-radius:2px}
+.ub-bar-fill{height:100%;border-radius:2px;background:var(--accent);transition:width .6s ease}
+.ub-score{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--muted);min-width:40px;text-align:right}
+
+/* revision tips */
+.tips-box{padding:20px 40px;background:var(--surface2);border-top:1px solid var(--border)}
+.tips-box h3{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:12px;font-family:'IBM Plex Mono',monospace}
+.tip-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.tip-card{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--accent);padding:10px 14px;border-radius:0 3px 3px 0;font-size:12px;line-height:1.6}
+.tip-card strong{display:block;font-size:11px;color:var(--accent);margin-bottom:3px;font-family:'IBM Plex Mono',monospace;text-transform:uppercase;letter-spacing:.06em}
+
+/* footer */
+.footer{max-width:860px;margin:0 auto;padding:18px 40px 48px;font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--faint);display:flex;justify-content:space-between;border-top:1px solid var(--border)}
+
+@media(max-width:600px){
+  .hero,.prog-wrap,.qwrap,.sec-hdr,.sec-desc,.results,.footer{padding-left:16px;padding-right:16px}
+  .hero h1{font-size:26px}
+  .hero-meta{grid-template-columns:1fr 1fr}
+  .hm-cell:nth-child(2){border-right:none}
+  .hm-cell:nth-child(3){border-top:1px solid var(--border2)}
+  .res-top{flex-direction:column;gap:16px}
+  .ub-bar-track{width:90px}
+  .tip-grid{grid-template-columns:1fr}
+  .tb-meta,.chip{display:none}
+  .part-lbl{min-width:90px}
+}
+@media print{.topbar{display:none}body{background:#fff}.qcard{break-inside:avoid}}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="tb-logo">Fractions</div>
+  <div class="tb-title">Practice Booster</div>
+  <div class="tb-meta">Y7 · 2025/26 · Non-calculator · 55 marks</div>
+  <div class="tb-right">
+    <span class="chip" id="chip-prog">0 / 30 answered</span>
+    <button class="tbtn tbtn-reset" onclick="resetAll()">Reset</button>
+    <button class="tbtn tbtn-check" onclick="checkAll()">Check answers</button>
+    <button class="tbtn tbtn-submit" onclick="submitTest()">Submit →</button>
+  </div>
+</div>
+
+<div class="hero">
+  <div class="hero-tag">Shrewsbury International School Bangkok · Fractions Focus</div>
+  <h1>Fractions<br><em>Practice Booster</em></h1>
+  <div class="hero-sub">
+    30 questions · 55 marks · Non-calculator · Covers all fraction topics from Units 7 &amp; 8<br>
+    Questions increase in difficulty: Warm-up → Medium → Hard → Extension ★
+  </div>
+  <div class="hero-meta">
+    <div class="hm-cell"><div class="hm-label">Questions</div><div class="hm-val">30</div></div>
+    <div class="hm-cell"><div class="hm-label">Total marks</div><div class="hm-val">55</div></div>
+    <div class="hm-cell"><div class="hm-label">Calculator</div><div class="hm-val">✗ None</div></div>
+    <div class="hm-cell"><div class="hm-label">Focus</div><div class="hm-val">Units 7–8</div></div>
+  </div>
+  <div class="hero-tip">💡 Type fractions as: 3/4 · Mixed numbers as: 2 3/4 · Simplify unless told otherwise · Include £ or cm² where needed.</div>
+</div>
+
+<div class="prog-wrap">
+  <div class="prog-row">
+    <span id="prog-txt">0 of 30 answered</span>
+    <span id="prog-pct">0%</span>
+  </div>
+  <div class="prog-bar"><div class="prog-fill" id="prog-fill" style="width:0%"></div></div>
+  <div class="score-strip">
+    <div class="ss-cell"><div class="ss-val" id="sc-cor">0</div><div class="ss-lbl">Correct</div></div>
+    <div class="ss-cell"><div class="ss-val" id="sc-marks">0 / 55</div><div class="ss-lbl">Marks</div></div>
+    <div class="ss-cell"><div class="ss-val" id="sc-pct">—</div><div class="ss-lbl">Score %</div></div>
+  </div>
+</div>
+
+<div id="test-body"></div>
+
+<div class="results" id="results">
+  <div class="res-card">
+    <div class="res-top">
+      <div class="res-score-big" id="res-big">—<span>/55</span></div>
+      <div class="res-info">
+        <div class="res-grade" id="res-grade"></div>
+        <div class="res-pct" id="res-pct"></div>
+        <div class="res-msg" id="res-msg"></div>
+      </div>
+    </div>
+    <div class="sec-breakdown">
+      <h3>Section breakdown</h3>
+      <div id="sec-rows"></div>
+    </div>
+    <div class="tips-box">
+      <h3>Revision tips based on your score</h3>
+      <div class="tip-grid" id="tips-grid">
+        <div class="tip-card"><strong>Sparx</strong>Use codes M410, M671, M835, M601, M931, M157, M110, M265, M958, M695 for fractions practice.</div>
+        <div class="tip-card"><strong>Oak National Academy</strong>Search "KS3 fractions" for video lessons with built-in quizzes on each sub-topic.</div>
+        <div class="tip-card"><strong>DrFrostMaths</strong>Find the Year 7 fractions unit — it has skill-by-skill practice with worked examples.</div>
+        <div class="tip-card"><strong>Key rules to remember</strong>LCD for add/subtract · Multiply by reciprocal to divide · Always simplify at the end.</div>
+      </div>
+    </div>
+  </div>
+  <div style="text-align:center;margin-top:16px">
+    <button class="tbtn tbtn-check" onclick="resetAll()" style="padding:10px 28px">Try again</button>
+  </div>
+</div>
+
+<div class="footer">
+  <span>Shrewsbury International School Bangkok · Y7 Fractions Booster 2025/26</span>
+  <span>Non-calculator · 55 marks · Units 7 &amp; 8</span>
+</div>
+
+<script>
+// ── SECTIONS (for breakdown) ──
+const SECS=[
+  {name:"Simplifying & Equivalent Fractions",marks:5},
+  {name:"Ordering & Comparing Fractions",marks:5},
+  {name:"Adding & Subtracting Fractions",marks:8},
+  {name:"Multiplying Fractions",marks:7},
+  {name:"Dividing Fractions",marks:7},
+  {name:"Fractions of Amounts",marks:5},
+  {name:"Fractions & Decimals",marks:5},
+  {name:"Mixed & Problem Solving",marks:13},
+];
+
+// ── NORMALISE ──
+function norm(s){
+  return String(s).trim().toLowerCase()
+    .replace(/\s+/g,' ')
+    .replace(/[£$]/g,'')
+    .replace(/\s*cm²/gi,'cm2')
+    .replace(/\s*m²/gi,'m2')
+    .replace(/\s*cm\b/gi,'cm')
+    .replace(/\s*g\b/gi,'g')
+    .replace(/\s*kg\b/gi,'kg')
+    .replace(/\s*ml\b/gi,'ml')
+    .replace(/\s*litres?\b/gi,'l')
+    .replace(/,/g,'');
+}
+function match(inp,acc){
+  const n=norm(inp);
+  if(typeof acc==='string') return n===norm(acc);
+  if(Array.isArray(acc)) return acc.some(a=>n===norm(a));
+  return false;
+}
+
+// ── QUESTIONS ──
+const QS=[
+
+// ════ SECTION A: SIMPLIFYING & EQUIVALENT ════
+{s:0,num:"Q1",diff:"warm",marks:1,
+ stem:"Simplify <strong>12/18</strong> to its lowest terms.",
+ hint:"Find the HCF of 12 and 18, then divide both by it.",
+ parts:[{id:"q1",accept:["2/3"]}]},
+
+{s:0,num:"Q2",diff:"warm",marks:1,
+ stem:"Simplify <strong>24/36</strong>.",
+ hint:"HCF of 24 and 36 is 12.",
+ parts:[{id:"q2",accept:["2/3"]}]},
+
+{s:0,num:"Q3",diff:"warm",marks:1,
+ stem:"Find an equivalent fraction to <strong>3/5</strong> with denominator 20.",
+ hint:"What do you multiply 5 by to get 20? Do the same to the numerator.",
+ parts:[{id:"q3",accept:["12/20"]}]},
+
+{s:0,num:"Q4",diff:"med",marks:1,
+ stem:"Simplify <strong>42/56</strong> fully.",
+ hint:"HCF of 42 and 56 is 14.",
+ parts:[{id:"q4",accept:["3/4"]}]},
+
+{s:0,num:"Q5",diff:"med",marks:1,
+ stem:"Which of these fractions is <em>not</em> equivalent to <strong>2/3</strong>?<br><strong>A) 8/12 &nbsp;&nbsp; B) 10/15 &nbsp;&nbsp; C) 9/12 &nbsp;&nbsp; D) 14/21</strong>",
+ hint:"Cross-multiply or simplify each to check.",
+ parts:[{id:"q5",accept:["c","9/12","c) 9/12"]}]},
+
+// ════ SECTION B: ORDERING ════
+{s:1,num:"Q6",diff:"warm",marks:1,
+ stem:"Which is larger: <strong>3/4</strong> or <strong>5/7</strong>? Show your reasoning.",
+ hint:"Find a common denominator — LCD of 4 and 7 is 28.",
+ parts:[{id:"q6",accept:["3/4"]}]},
+
+{s:1,num:"Q7",diff:"med",marks:2,
+ stem:"Order these fractions from <strong>smallest to largest</strong>:<br><strong>5/6, &nbsp; 7/9, &nbsp; 2/3, &nbsp; 11/18</strong>",
+ hint:"LCD of 6, 9, 3 and 18 is 18. Convert all fractions.",
+ parts:[{id:"q7",accept:["11/18, 2/3, 7/9, 5/6","11/18,2/3,7/9,5/6"]}]},
+
+{s:1,num:"Q8",diff:"hard",marks:2,
+ stem:"Place these in order smallest → largest:<br><strong>1⅓, &nbsp; 4/3, &nbsp; 1.4, &nbsp; 7/5, &nbsp; 1¼</strong>",
+ hint:"Convert all to decimals or improper fractions with a common denominator.",
+ parts:[{id:"q8",accept:["4/3, 1 1/3, 1 1/4, 7/5, 1.4","4/3, 1 1/4, 7/5, 1.4","1 1/3, 1 1/4, 7/5, 1.4","4/3, 1 1/4, 1.4, 7/5"]}]},
+
+// ════ SECTION C: ADDING & SUBTRACTING ════
+{s:2,num:"Q9",diff:"warm",marks:1,
+ stem:"Calculate <strong>1/4 + 1/3</strong>. Give your answer as a fraction in its simplest form.",
+ hint:"LCD of 4 and 3 is 12.",
+ parts:[{id:"q9",accept:["7/12"]}]},
+
+{s:2,num:"Q10",diff:"warm",marks:1,
+ stem:"Calculate <strong>5/6 − 1/4</strong>.",
+ hint:"LCD of 6 and 4 is 12.",
+ parts:[{id:"q10",accept:["7/12"]}]},
+
+{s:2,num:"Q11",diff:"med",marks:2,
+ stem:"Calculate <strong>2⅓ + 1¾</strong>. Give your answer as a mixed number.",
+ hint:"Add the whole numbers, then add the fractions using a common denominator.",
+ parts:[{id:"q11",accept:["4 1/12","4+1/12","49/12"]}]},
+
+{s:2,num:"Q12",diff:"med",marks:2,
+ stem:"Calculate <strong>3⅕ − 1⅔</strong>. Give your answer as a mixed number in its simplest form.",
+ hint:"Convert to improper fractions, find LCD (15), subtract, then convert back.",
+ parts:[{id:"q12",accept:["1 8/15","23/15"]}]},
+
+{s:2,num:"Q13",diff:"hard",marks:2,
+ stem:"Calculate <strong>4½ − 1¾ + 2⅓</strong>. Give your answer as a mixed number.",
+ hint:"LCD of 2, 4 and 3 is 12. Convert all fractional parts.",
+ parts:[{id:"q13",accept:["5 1/12","61/12"]}]},
+
+// ════ SECTION D: MULTIPLYING ════
+{s:3,num:"Q14",diff:"warm",marks:1,
+ stem:"Calculate <strong>2/3 × 3/5</strong>. Simplify your answer.",
+ hint:"Multiply numerators together, then denominators. Simplify at the end.",
+ parts:[{id:"q14",accept:["2/5"]}]},
+
+{s:3,num:"Q15",diff:"warm",marks:1,
+ stem:"Calculate <strong>4/7 × 14/16</strong>. Give answer in simplest form.",
+ hint:"Try cancelling diagonally before multiplying — 4 and 16 share a factor, 7 and 14 share a factor.",
+ parts:[{id:"q15",accept:["1/2"]}]},
+
+{s:3,num:"Q16",diff:"med",marks:2,
+ stem:"Calculate <strong>2¼ × 1⅗</strong>. Give your answer as a mixed number.",
+ hint:"Convert both to improper fractions first: 2¼ = 9/4 and 1⅗ = 8/5.",
+ parts:[{id:"q16",accept:["3 3/5","18/5"]}]},
+
+{s:3,num:"Q17",diff:"hard",marks:3,
+ stem:"A rectangle has length <strong>3⅔ cm</strong> and width <strong>2¼ cm</strong>. Find the area. Give your answer as a mixed number in cm². <em>[S, U]</em>",
+ hint:"Area = length × width. Convert both to improper fractions.",
+ parts:[{id:"q17",accept:["8 1/4","33/4","8.25","8.25 cm2"]}]},
+
+// ════ SECTION E: DIVIDING ════
+{s:4,num:"Q18",diff:"warm",marks:1,
+ stem:"Calculate <strong>3/4 ÷ 1/2</strong>.",
+ hint:"Keep the first fraction, Change ÷ to ×, Flip the second fraction (KCF).",
+ parts:[{id:"q18",accept:["3/2","1 1/2","1.5"]}]},
+
+{s:4,num:"Q19",diff:"warm",marks:1,
+ stem:"Calculate <strong>5/6 ÷ 5/3</strong>. Simplify fully.",
+ hint:"Multiply 5/6 by the reciprocal of 5/3.",
+ parts:[{id:"q19",accept:["1/2"]}]},
+
+{s:4,num:"Q20",diff:"med",marks:2,
+ stem:"Calculate <strong>3½ ÷ 7/4</strong>. Give your answer as a mixed number.",
+ hint:"Convert 3½ to an improper fraction first.",
+ parts:[{id:"q20",accept:["2","2/1"]}]},
+
+{s:4,num:"Q21",diff:"med",marks:2,
+ stem:"Calculate <strong>2⅔ ÷ 1⅓</strong>. Give your answer as a fraction in simplest form.",
+ hint:"Convert both: 2⅔ = 8/3 and 1⅓ = 4/3. Then divide.",
+ parts:[{id:"q21",accept:["2","2/1"]}]},
+
+{s:4,num:"Q22",diff:"hard",marks:2,
+ stem:"How many pieces of length <strong>2/5 m</strong> can be cut from a rope of length <strong>3⅗ m</strong>? <em>[S]</em>",
+ hint:"Divide 3⅗ by 2/5. Convert 3⅗ to an improper fraction first.",
+ parts:[{id:"q22",accept:["9"]}]},
+
+// ════ SECTION F: FRACTIONS OF AMOUNTS ════
+{s:5,num:"Q23",diff:"warm",marks:1,
+ stem:"Find <strong>3/5</strong> of <strong>£85</strong>.",
+ hint:"Divide by 5 first, then multiply by 3.",
+ parts:[{id:"q23",accept:["£51","51","51.00"]}]},
+
+{s:5,num:"Q24",diff:"med",marks:2,
+ stem:"In a class of 30 students, <strong>⅖</strong> are boys. How many boys are there? How many girls?",
+ hint:"Find ⅖ of 30 for boys. Subtract from 30 for girls.",
+ parts:[
+   {id:"q24a",label:"Boys:",accept:["12"]},
+   {id:"q24b",label:"Girls:",accept:["18"]},
+ ]},
+
+{s:5,num:"Q25",diff:"hard",marks:2,
+ stem:"A school has 840 pupils. <strong>⅜</strong> are in Years 7–8, and <strong>¼</strong> of <em>those</em> are in Year 7. How many pupils are in Year 7? <em>[L, S]</em>",
+ hint:"Find ⅜ of 840 first, then find ¼ of that result.",
+ parts:[{id:"q25",accept:["105"]}]},
+
+// ════ SECTION G: FRACTIONS & DECIMALS ════
+{s:6,num:"Q26",diff:"warm",marks:1,
+ stem:"Convert <strong>7/8</strong> to a decimal. Show your division.",
+ hint:"Divide 7 by 8 using short division: 7.000 ÷ 8.",
+ parts:[{id:"q26",accept:["0.875"]}]},
+
+{s:6,num:"Q27",diff:"med",marks:2,
+ stem:"Convert <strong>0.36</strong> to a fraction in its simplest form.",
+ hint:"0.36 = 36/100. Then simplify by finding the HCF.",
+ parts:[{id:"q27",accept:["9/25"]}]},
+
+{s:6,num:"Q28",diff:"hard",marks:2,
+ stem:"Which is greater: <strong>5/13</strong> or <strong>0.38</strong>? Show clear working. <em>[S]</em>",
+ hint:"Convert 5/13 to a decimal by dividing: 5.000 ÷ 13.",
+ parts:[{id:"q28",accept:["0.38","0.38 is greater","0.38 > 5/13"]}]},
+
+// ════ SECTION H: MIXED PROBLEM SOLVING ════
+{s:7,num:"Q29",diff:"hard",marks:3,
+ stem:"Aisha spends <strong>⅓</strong> of her money on books and <strong>¼</strong> on food. She has <strong>£60</strong> left. How much did she start with? <em>[L, S]</em>",
+ hint:"Find what fraction is left: 1 − ⅓ − ¼. Then use that fraction to find the total.",
+ parts:[{id:"q29",accept:["£144","144"]}]},
+
+{s:7,num:"Q30",diff:"ext",marks:4,
+ stem:"★ A tank is <strong>¾</strong> full. After removing <strong>45 litres</strong>, the tank is <strong>⅗</strong> full.<br>(a) What fraction of the tank was removed? <em>[S]</em><br>(b) How many litres does the full tank hold? <em>[L, U]</em>",
+ hint:"Fraction removed = ¾ − ⅗. Then: fraction removed × total = 45 litres. Solve for total.",
+ parts:[
+   {id:"q30a",label:"(a) Fraction removed:",accept:["3/20"]},
+   {id:"q30b",label:"(b) Full tank capacity:",accept:["300","300 litres","300l","300 l"]},
+ ]},
+
+{s:7,num:"Q31",diff:"hard",marks:3,
+ stem:"★ A recipe needs <strong>2½ cups</strong> of flour for <strong>20 biscuits</strong>. How many cups are needed for <strong>36 biscuits</strong>? Give your answer as a mixed number. <em>[S, L]</em>",
+ hint:"Find cups per biscuit first (unitary method), then multiply by 36.",
+ parts:[{id:"q31",accept:["4 1/2","4.5","9/2"]}]},
+
+{s:7,num:"Q32",diff:"ext",marks:3,
+ stem:"★ Three friends share a bag of sweets. Aisha takes <strong>⅓</strong>, Ben takes <strong>¼</strong> of the <em>remainder</em>, and Cleo gets the rest. There are <strong>60 sweets</strong> in total. How many does each person get? <em>[L, S]</em>",
+ hint:"Aisha: ⅓ of 60. Remainder: 60 − Aisha's share. Ben: ¼ of remainder. Cleo: what's left.",
+ parts:[
+   {id:"q32a",label:"Aisha:",accept:["20"]},
+   {id:"q32b",label:"Ben:",accept:["10"]},
+   {id:"q32c",label:"Cleo:",accept:["30"]},
+ ]},
+];
+
+const TOTAL_Q=QS.length;
+const answers={},checked={};
+
+function diffBadge(d){
+  const map={warm:['diff-warm','◆◇◇◇ Warm-up'],med:['diff-med','◆◆◇◇ Medium'],hard:['diff-hard','◆◆◆◇ Hard'],ext:['diff-ext','◆◆◆◆ Extension']};
+  const [cls,txt]=map[d]||['diff-warm',''];
+  return `<span class="diff ${cls}">${txt}</span>`;
+}
+
+const SEC_NAMES=["A — Simplifying & Equivalent","B — Ordering","C — Adding & Subtracting","D — Multiplying","E — Dividing","F — Fractions of Amounts","G — Fractions & Decimals","H — Problem Solving"];
+const SEC_ICONS=["S","O","±","×","÷","f","d","★"];
+const SEC_COLS=["#1e7a3c","#1a5fa8","#7a28b8","#c87020","#b82050","#1a8aa8","#2a8a2a","#b87800"];
+
+function buildTest(){
+  const body=document.getElementById('test-body');
+  let html='',curS=-1;
+  QS.forEach((q,qi)=>{
+    if(q.s!==curS){
+      curS=q.s;
+      const col=SEC_COLS[curS];
+      const secMarks=SECS[curS].marks;
+      html+=`<div class="sec-hdr" style="--accent:${col}">
+        <div class="sec-hdr-inner" style="border-color:${col}">
+          <div class="sec-icon" style="background:${col}">${SEC_ICONS[curS]}</div>
+          <span class="sec-name" style="color:${col}">${SEC_NAMES[curS]}</span>
+          <span class="sec-marks">${secMarks} marks</span>
+        </div>
+      </div>`;
+    }
+    html+=`<div class="qwrap"><div class="qcard" id="card-${qi}">
+      <div class="q-top">
+        <span class="q-label" style="color:${SEC_COLS[q.s]};background:${SEC_COLS[q.s]}18;border-color:${SEC_COLS[q.s]}30">${q.num}</span>
+        <div class="q-body">
+          <div class="q-stem">${q.stem}</div>
+          <div class="ans-row">`;
+
+    if(q.parts.length===1){
+      const p=q.parts[0];
+      html+=`<input class="ans-in" id="${p.id}" placeholder="${p.ph||'your answer'}"
+        oninput="rec('${p.id}',${qi})" onchange="rec('${p.id}',${qi})">`;
+    } else {
+      q.parts.forEach(p=>{
+        html+=`<div class="part-row">`;
+        if(p.label) html+=`<span class="part-lbl">${p.label}</span>`;
+        html+=`<input class="ans-in" id="${p.id}" placeholder="${p.ph||'answer'}"
+          oninput="rec('${p.id}',${qi})" onchange="rec('${p.id}',${qi})">`;
+        html+=`</div>`;
+      });
+    }
+
+    html+=`</div>`;
+    if(q.hint) html+=`<button class="hint-toggle" onclick="tog('h${qi}')">Show hint</button>
+      <div class="hint-box" id="h${qi}" style="border-color:${SEC_COLS[q.s]}">💡 ${q.hint}</div>`;
+    html+=`<div class="fb" id="fb-${qi}"></div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;flex-shrink:0;margin-top:2px">
+          <span class="q-marks-tag">${q.marks}m</span>
+          ${diffBadge(q.diff)}
+        </div>
+      </div>
+    </div></div>`;
+  });
+  body.innerHTML=html;
+  document.getElementById('chip-prog').textContent=`0 / ${TOTAL_Q} answered`;
+  document.getElementById('prog-txt').textContent=`0 of ${TOTAL_Q} answered`;
+}
+
+function tog(id){
+  const el=document.getElementById(id);
+  el.classList.toggle('show');
+  el.previousElementSibling.textContent=el.classList.contains('show')?'Hide hint':'Show hint';
+}
+
+function rec(id,qi){
+  answers[id]=document.getElementById(id).value;
+  const filled=QS[qi].parts.every(p=>(answers[p.id]||'').trim().length>0);
+  document.getElementById(`card-${qi}`).classList.toggle('answered',filled);
+  let ans=0;
+  QS.forEach(q=>{if(q.parts.every(p=>(answers[p.id]||'').trim().length>0))ans++;});
+  const pct=Math.round(ans/TOTAL_Q*100);
+  document.getElementById('prog-txt').textContent=`${ans} of ${TOTAL_Q} answered`;
+  document.getElementById('prog-pct').textContent=pct+'%';
+  document.getElementById('prog-fill').style.width=pct+'%';
+  document.getElementById('chip-prog').textContent=`${ans} / ${TOTAL_Q} answered`;
+}
+
+function checkAll(){
+  let tCor=0,tMarks=0;
+  QS.forEach((q,qi)=>{
+    let qC=0;
+    q.parts.forEach(p=>{
+      const el=document.getElementById(p.id);
+      if(!el)return;
+      el.classList.remove('correct','wrong');
+      const v=(answers[p.id]||'').trim();
+      if(!v)return;
+      if(match(v,p.accept)){qC++;el.classList.add('correct');}
+      else el.classList.add('wrong');
+    });
+    checked[qi]=qC;
+    const allC=qC===q.parts.length;
+    const anyC=qC>0;
+    const hasAny=q.parts.some(p=>(answers[p.id]||'').trim().length>0);
+    const card=document.getElementById(`card-${qi}`);
+    card.classList.remove('all-correct','some-wrong');
+    if(hasAny){allC?card.classList.add('all-correct'):card.classList.add('some-wrong');}
+    const fb=document.getElementById(`fb-${qi}`);
+    if(!hasAny){fb.className='fb';fb.innerHTML='';return;}
+    if(allC){
+      fb.className='fb show ok';
+      fb.innerHTML=`✓ Correct — ${q.marks} mark${q.marks>1?'s':''}`;
+    } else if(anyC){
+      fb.className='fb show part';
+      fb.innerHTML='~ Partially correct — check the highlighted boxes';
+    } else {
+      const sol=q.parts.map(p=>Array.isArray(p.accept)?p.accept[0]:p.accept).join(' | ');
+      fb.className='fb show bad';
+      fb.innerHTML=`✗ Not quite. Answer: ${sol}`;
+    }
+    const m=allC?q.marks:anyC?Math.floor(q.marks*qC/q.parts.length):0;
+    tMarks+=m;if(allC)tCor++;
+  });
+  document.getElementById('sc-cor').textContent=tCor;
+  document.getElementById('sc-marks').textContent=tMarks+' / 55';
+  document.getElementById('sc-pct').textContent=Math.round(tMarks/55*100)+'%';
+}
+
+function submitTest(){
+  checkAll();
+  let sM={};
+  QS.forEach((q,qi)=>{
+    if(!sM[q.s])sM[q.s]={e:0,t:0};
+    const qC=checked[qi]||0;
+    const allC=qC===q.parts.length,anyC=qC>0;
+    const m=allC?q.marks:anyC?Math.floor(q.marks*qC/q.parts.length):0;
+    sM[q.s].e+=m;sM[q.s].t+=q.marks;
+  });
+  const total=Object.values(sM).reduce((s,u)=>s+u.e,0);
+  const pct=Math.round(total/55*100);
+  document.getElementById('res-big').innerHTML=`${total}<span>/55</span>`;
+  document.getElementById('res-pct').textContent=pct+'%';
+  let grade,msg,col;
+  if(pct>=85){grade='Excellent — Fractions Master!';msg='Outstanding fraction skills. You are well prepared.';col='#1e7a3c'}
+  else if(pct>=70){grade='Very Good';msg='Strong performance — iron out a few remaining gaps.';col='#1a5fa8'}
+  else if(pct>=55){grade='Good';msg='Solid foundation — keep practising the trickier topics.';col='#c87020'}
+  else if(pct>=40){grade='Developing';msg='Review the sections where you dropped marks below.';col='#b82050'}
+  else{grade='Keep practising';msg='Fractions take time — use Sparx codes and the hint system.';col='#b83020'}
+  document.getElementById('res-grade').textContent=grade;
+  document.getElementById('res-grade').style.color=col;
+  document.getElementById('res-msg').textContent=msg;
+  let rows='';
+  SECS.forEach((sec,i)=>{
+    const sm=sM[i]||{e:0,t:sec.marks};
+    const up=Math.round(sm.e/sm.t*100);
+    rows+=`<div class="ub-row">
+      <div class="ub-name">${SEC_NAMES[i]}</div>
+      <div class="ub-bar-track"><div class="ub-bar-fill" style="width:${up}%;background:${SEC_COLS[i]}"></div></div>
+      <div class="ub-score">${sm.e}/${sm.t}</div>
+    </div>`;
+  });
+  document.getElementById('sec-rows').innerHTML=rows;
+  document.getElementById('results').classList.add('show');
+  document.getElementById('results').scrollIntoView({behavior:'smooth'});
+}
+
+function resetAll(){
+  Object.keys(answers).forEach(k=>delete answers[k]);
+  Object.keys(checked).forEach(k=>delete checked[k]);
+  QS.forEach((q,qi)=>{
+    q.parts.forEach(p=>{
+      const el=document.getElementById(p.id);
+      if(el){el.value='';el.classList.remove('correct','wrong');}
+    });
+    const fb=document.getElementById(`fb-${qi}`);
+    if(fb){fb.className='fb';fb.innerHTML='';}
+    const card=document.getElementById(`card-${qi}`);
+    if(card)card.classList.remove('answered','all-correct','some-wrong');
+  });
+  document.getElementById('sc-cor').textContent='0';
+  document.getElementById('sc-marks').textContent='0 / 55';
+  document.getElementById('sc-pct').textContent='—';
+  document.getElementById('prog-fill').style.width='0%';
+  document.getElementById('prog-txt').textContent=`0 of ${TOTAL_Q} answered`;
+  document.getElementById('prog-pct').textContent='0%';
+  document.getElementById('chip-prog').textContent=`0 / ${TOTAL_Q} answered`;
+  document.getElementById('results').classList.remove('show');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+buildTest();
+</script>
+</body>
+</html>
